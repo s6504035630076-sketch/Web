@@ -571,42 +571,49 @@
             });
         }
 
-        window.saveToFirebase = function() {
-    // 1️⃣ ส่วนสำคัญ: บังคับเรียงเลข Slot ใหม่ทั้งหมด ให้ตรงกับลำดับ Array 0,1,2...
-    if (Array.isArray(globalSlots)) {
-        globalSlots.forEach((item, index) => {
-            // Index 0 -> ให้เป็น Slot 1
-            // Index 1 -> ให้เป็น Slot 2
-            if (item) { // เช็คกัน error ว่า item ไม่ใช่ null
-                item.slot = index + 1;
+        window.saveToFirebase = function () {
+            // 1️⃣ ส่วนสำคัญ: บังคับเรียงเลข Slot ใหม่ทั้งหมด ให้ตรงกับลำดับ Array 0,1,2...
+            if (Array.isArray(globalSlots)) {
+                globalSlots.forEach((item, index) => {
+                    // Index 0 -> ให้เป็น Slot 1
+                    // Index 1 -> ให้เป็น Slot 2
+                    if (item) { // เช็คกัน error ว่า item ไม่ใช่ null
+                        item.slot = index + 1;
+                    }
+                });
             }
-        });
-    }
 
-    // 2️⃣ ส่งข้อมูลที่แก้เลขแล้ว ขึ้น Firebase
-    set(ref(db, "slots"), globalSlots)
-        .then(() => {
-            console.log("✅ Data synced & Re-indexed successfully");
-        })
-        .catch((error) => { 
-            alert("บันทึกไม่สำเร็จ: " + error.message); 
-        });
-}
+            // 2️⃣ ส่งข้อมูลที่แก้เลขแล้ว ขึ้น Firebase
+            set(ref(db, "slots"), globalSlots)
+                .then(() => {
+                    console.log("✅ Data synced & Re-indexed successfully");
+                })
+                .catch((error) => {
+                    alert("บันทึกไม่สำเร็จ: " + error.message);
+                });
+        }
 
         // --- Button Actions ---
         window.addSlot = function () {
             if (!Array.isArray(globalSlots)) globalSlots = [];
             const nextNum = globalSlots.length + 1;
 
-            // 🔥 สร้างเวลาปัจจุบัน (เช่น "10:30:45")
             const now = new Date();
-            const timeString = now.toLocaleTimeString('th-TH'); // หรือ 'en-US' แล้วแต่ชอบ
+            // 🔥 ปรับเป็นรูปแบบสากล: 09 Dec 2025 14:30
+            const dateTimeString = now.toLocaleString('en-GB', {
+                day: 'numeric',
+                month: 'short',   // Dec
+                year: 'numeric',  // 2025
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false     // ใช้แบบ 24 ชั่วโมง (14:30)
+            });
 
             globalSlots.push({
                 slot: nextNum,
                 name: "Empty Slot",
                 detail: "Available for new item",
-                createdAt: timeString // 🔥 บันทึกเวลาลงไป
+                createdAt: dateTimeString 
             });
             saveToFirebase();
         };
@@ -635,8 +642,17 @@
             if (globalSlots[currentSlotIndex]) {
                 globalSlots[currentSlotIndex].name = name;
                 globalSlots[currentSlotIndex].detail = '<span class="text-success small">● Ready to dispense</span>';
-                // (ถ้าอยากให้อัปเดตเวลาตอน "แก้ไข" ด้วย ให้ uncomment บรรทัดล่าง)
-                // globalSlots[currentSlotIndex].createdAt = new Date().toLocaleTimeString('th-TH');
+                
+                // 🔥 อัปเดตเวลาเป็นสากลเช่นกัน
+                const now = new Date();
+                globalSlots[currentSlotIndex].createdAt = now.toLocaleString('en-GB', {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
 
                 saveToFirebase();
             }
