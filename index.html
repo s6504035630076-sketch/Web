@@ -210,15 +210,51 @@
             padding: 5px;
             border-radius: 8px;
         }
+
+        :root {
+    --phyathai-dark-green: #2f6f5e;   /* PHAYATHAI */
+    --phyathai-light-green: #8bcfae;  /* HOSPITAL */
+}
+
+.co-badge {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.45);
+    padding: 7px 22px;
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+    color: #2f3542;
+    display: inline-block;
+    margin-top: 12px;
+}
+
+/* 🔑 เน้นคำ Phyathai 3 */
+.co-badge b {
+    color: var(--phyathai-dark-green);
+    font-weight: 700;
+}
+
+
     </style>
 </head>
 
 <body>
 
-    <div class='text-center mt-2'>
-        <h1 class='header-title'>Smart Cabinet</h1>
-        <div class='creator-badge'>Designed by <b style='color:#d35400;'>BME KMUTNB</b></div>
+    <div class="text-center mt-2">
+        <h1 class="header-title">Medicine Cabinet</h1>
+    
+        <div class="creator-badge">
+            Designed by <b style="color:#d35400;">BME KMUTNB</b>
+        </div>
+    
+        <div class="co-badge">
+            Collaborated with <b style="color:#8bcfae;">Phyathai3 Hospital</b>
+        </div>
+        
     </div>
+    
 
     <div class='login-card'>
         <div class='login-badge-label'>LOGIN</div>
@@ -243,7 +279,7 @@
         </form>
     </div>
 
-    <div class='footer-credit'>Engineering Project • Crafted with Passion</div>
+    <div class='footer-credit'> Biomedical Engineering Project </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";

@@ -15,6 +15,8 @@
     <style>
         /* CSS คงเดิม */
         :root {
+            --phyathai-light-green: #8bcfae;
+            /* HOSPITAL */
             --card-bg: rgba(255, 255, 255, 0.95);
             --accent-orange: #ff9f43;
             --accent-green: #2ecc71;
@@ -339,24 +341,76 @@
             background: #c0392b;
             color: white;
         }
+
+        .collab-badge {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.45);
+            padding: 7px 18px;
+            border-radius: 999px;
+            color: #2f3542;
+            display: flex;
+            align-items: center;
+            height: 40px;
+            backdrop-filter: blur(6px);
+        }
+
+
+        /* Collaboration Badge */
+        .collab-badge {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.45);
+            padding: 7px 18px;
+            border-radius: 999px;
+            color: #2f3542;
+            display: flex;
+            align-items: center;
+            height: 40px;
+            backdrop-filter: blur(6px);
+            white-space: nowrap;
+        }
+
+        .collab-badge span {
+            color: var(--phyathai-light-green);
+            font-weight: 700;
+            margin-left: 6px;
+        }
     </style>
 </head>
 
 <body>
-
     <div class="text-center mb-3 mt-4">
-        <h1 class="header-title display-3">Smart Cabinet</h1>
+        <h1 class="header-title display-3">Medicine Cabinet</h1>
+
         <div class="top-bar">
-            <div class="creator-badge">DESIGNED BY <span style="color: #d35400; font-weight: 700; margin-left: 6px;">BME
-                    KMUTNB</span></div>
+            <div class="creator-badge">
+                DESIGNED BY
+                <span style="color:#d35400; font-weight:700; margin-left:6px;">
+                    BME KMUTNB
+                </span>
+            </div>
+
+            <div class="collab-badge">
+                Collaborated with
+                <span>Phyathai3 Hospital</span>
+            </div>
+
+
             <button class="btn btn-sm btn-manage-list" onclick="openManageMedList()">
                 <i class="fas fa-list-ul me-1"></i> รายชื่อยาที่สแกน
             </button>
+
             <button class="btn btn-sm btn-manage-list btn-logout ms-2" onclick="logout()">
                 <i class="fas fa-sign-out-alt me-1"></i> ออกจากระบบ
             </button>
         </div>
     </div>
+
 
     <div class="container" style="max-width: 900px;">
         <div class="row g-4" id="slotContainer"></div>
@@ -371,7 +425,7 @@
         </div>
     </div>
 
-    <div class="footer-credit text-center">Engineering Project • Crafted with Passion</div>
+    <div class="footer-credit text-center">Biomedical Engineering Project</div>
 
     <div class="modal fade" id="selectMedModal" tabindex="-1">
         <div class="modal-dialog">
@@ -613,7 +667,7 @@
                 slot: nextNum,
                 name: "Empty Slot",
                 detail: "Available for new item",
-                createdAt: dateTimeString 
+                createdAt: dateTimeString
             });
             saveToFirebase();
         };
@@ -642,7 +696,7 @@
             if (globalSlots[currentSlotIndex]) {
                 globalSlots[currentSlotIndex].name = name;
                 globalSlots[currentSlotIndex].detail = '<span class="text-success small">● Ready to dispense</span>';
-                
+
                 // 🔥 อัปเดตเวลาเป็นสากลเช่นกัน
                 const now = new Date();
                 globalSlots[currentSlotIndex].createdAt = now.toLocaleString('en-GB', {
