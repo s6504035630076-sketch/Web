@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang='th'>
+<html lang="th">
 
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login • Smart Cabinet</title>
 
-    <link
-        href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Kanit:wght@300;400;500&family=Outfit:wght@300;500;700&display=swap'
-        rel='stylesheet'>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Kanit:wght@300;400;500&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --text-main: #2f3542;
             --accent-dark: #2f3640;
+            --phyathai-dark-green: #2f6f5e;
+            --phyathai-light-green: #8bcfae;
         }
 
         body {
@@ -26,266 +26,162 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             align-items: center;
             padding: 30px 20px;
-            position: relative;
-            overflow: hidden;
         }
 
         @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.035"/%3E%3C/svg%3E');
-            z-index: -1;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-2 {
-            margin-top: 0.5rem;
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .header-title {
             font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
             font-size: 3rem;
             font-style: italic;
-            color: #2c3e50;
             margin-bottom: 8px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .creator-badge {
+        .creator-badge,
+        .co-badge {
             font-family: 'Outfit', sans-serif;
             font-size: 0.75rem;
-            letter-spacing: 1.5px;
             text-transform: uppercase;
-            background: rgba(255, 255, 255, 0.38);
-            padding: 6px 16px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            color: #444;
+            background: rgba(255,255,255,0.45);
+            padding: 7px 22px;
+            border-radius: 999px;
+            margin-top: 10px;
         }
+
+        .co-badge b { color: var(--phyathai-dark-green); }
 
         .login-card {
             margin-top: 35px;
-            position: relative;
             width: 100%;
             max-width: 380px;
             padding: 32px 28px;
-            background: rgba(255, 255, 255, 0.32);
+            background: rgba(255,255,255,0.35);
             border-radius: 26px;
-            border: 1px solid rgba(255, 255, 255, 0.55);
-            backdrop-filter: blur(22px) saturate(180%);
-            -webkit-backdrop-filter: blur(22px) saturate(180%);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18), inset 0 0 40px rgba(255, 255, 255, 0.25);
-            overflow: hidden;
-        }
-
-        .login-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            pointer-events: none;
-            background: linear-gradient(140deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.12) 40%, rgba(255, 255, 255, 0) 100%);
-            opacity: 0.6;
+            backdrop-filter: blur(22px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.18);
         }
 
         .login-badge-label {
-            position: absolute;
-            top: 0;
-            left: 0;
             background: var(--accent-dark);
             color: #fff;
-            padding: 7px 20px 7px 26px;
-            border-bottom-right-radius: 18px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 2;
+            padding: 7px 20px;
+            border-radius: 0 0 18px 0;
+            font-size: 0.8rem;
+            width: fit-content;
         }
 
         .login-title {
             text-align: center;
-            margin-top: 28px;
-            margin-bottom: 6px;
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.2rem;
-            font-style: italic;
-            color: #2c3e50;
+            margin-top: 20px;
         }
 
         .login-subtitle {
             text-align: center;
-            font-size: 0.92rem;
-            color: #7f8c8d;
-            margin-bottom: 22px;
+            color: #555;
+            margin-bottom: 20px;
         }
 
-        .input-group {
-            margin-bottom: 16px;
-        }
+        .input-group { margin-bottom: 15px; }
 
-        label {
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-            color: #444;
-            display: block;
-        }
+        label { font-size: 0.9rem; }
 
         input {
             width: 100%;
-            padding: 10px 12px;
-            font-size: 1rem;
+            padding: 10px;
             border-radius: 12px;
-            border: 1px solid #dfe6e9;
-            background: rgba(252, 252, 252, 0.9);
+            border: 1px solid #ccc;
             font-family: 'Kanit', sans-serif;
-            transition: 0.25s;
-            box-sizing: border-box;
-        }
-
-        input:focus {
-            border-color: #74b9ff;
-            background: #fff;
-            box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.35);
-            outline: none;
         }
 
         button {
             width: 100%;
             padding: 11px;
-            margin-top: 4px;
             border: none;
             border-radius: 999px;
             background: var(--accent-dark);
             color: #fff;
-            font-size: 1.05rem;
+            font-size: 1rem;
             cursor: pointer;
-            transition: 0.3s;
-            font-family: 'Kanit', sans-serif;
+            margin-top: 8px;
         }
 
-        button:hover {
-            background: #1e272e;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-        }
-
-        .footer-credit {
-            margin-top: 40px;
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            color: #ffffffd5;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        button.register {
+            background: #6c5ce7;
         }
 
         #error-msg {
-            color: #e74c3c;
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
             display: none;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 5px;
+            color: #e74c3c;
+            background: rgba(255,255,255,0.6);
+            padding: 6px;
             border-radius: 8px;
+            text-align: center;
+            margin-bottom: 10px;
         }
 
-        :root {
-    --phyathai-dark-green: #2f6f5e;   /* PHAYATHAI */
-    --phyathai-light-green: #8bcfae;  /* HOSPITAL */
-}
-
-.co-badge {
-    font-family: 'Outfit', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    background: rgba(255, 255, 255, 0.45);
-    padding: 7px 22px;
-    border-radius: 999px;
-    backdrop-filter: blur(6px);
-    color: #2f3542;
-    display: inline-block;
-    margin-top: 12px;
-}
-
-/* 🔑 เน้นคำ Phyathai 3 */
-.co-badge b {
-    color: var(--phyathai-dark-green);
-    font-weight: 700;
-}
-
-
+        .footer-credit {
+            margin-top: 35px;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            color: #fff;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="text-center mt-2">
-        <h1 class="header-title">Medicine Cabinet</h1>
-    
-        <div class="creator-badge">
-            Designed by <b style="color:#d35400;">BME KMUTNB</b>
-        </div>
-    
-        <div class="co-badge">
-            Collaborated with <b style="color:#8bcfae;">Phyathai3 Hospital</b>
-        </div>
-        
+    <h1 class="header-title">Medicine Cabinet</h1>
+
+    <div class="creator-badge">
+        Designed by <b style="color:#d35400;">BME KMUTNB</b>
     </div>
-    
 
-    <div class='login-card'>
-        <div class='login-badge-label'>LOGIN</div>
+    <div class="co-badge">
+        Collaborated with <b>Phyathai 3 Hospital</b>
+    </div>
 
-        <div class='login-title'>เข้าสู่ระบบ</div>
-        <div class='login-subtitle'>ระบบตู้ยาอัจฉริยะ</div>
+    <div class="login-card">
+        <div class="login-badge-label">LOGIN</div>
+
+        <div class="login-title">เข้าสู่ระบบ</div>
+        <div class="login-subtitle">ระบบตู้ยาอัจฉริยะ</div>
 
         <div id="error-msg"></div>
 
         <form id="loginForm">
-            <div class='input-group'>
+            <div class="input-group">
                 <label>ชื่อผู้ใช้ (Username)</label>
-                <input type='text' id="username" required>
+                <input type="text" id="username" required>
             </div>
 
-            <div class='input-group'>
+            <div class="input-group">
                 <label>รหัสผ่าน (Password)</label>
-                <input type='password' id="password" required>
+                <input type="password" id="password" required>
             </div>
 
-            <button type='submit' id="btnLogin">เข้าสู่ระบบ</button>
+            <button type="submit" id="btnLogin">เข้าสู่ระบบ</button>
+
+            <!-- 🔗 ลิงก์ไปสมัครสมาชิก -->
+            <a href="register.html" style="text-decoration:none;">
+                <button type="button" class="register">สมัครสมาชิก</button>
+            </a>
         </form>
     </div>
 
-    <div class='footer-credit'> Biomedical Engineering Project </div>
+    <div class="footer-credit">Biomedical Engineering Project</div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
-        // 🔥 Config เดิมของคุณ (จากไฟล์ index.html)
         const firebaseConfig = {
             apiKey: "AIzaSyCEDJ0GGOqxPGik5huW9XdNEgcnlMs_ebM",
             authDomain: "slot-drug.firebaseapp.com",
@@ -298,46 +194,25 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        const loginForm = document.getElementById('loginForm');
-        const errorMsg = document.getElementById('error-msg');
-        const btnLogin = document.getElementById('btnLogin');
+        function formatEmail(username) {
+            return username.includes("@") ? username : username + "@smartcabinet.com";
+        }
 
-        loginForm.addEventListener('submit', (e) => {
+        document.getElementById("loginForm").addEventListener("submit", (e) => {
             e.preventDefault();
 
-            let username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
+            const email = formatEmail(username.value.trim());
+            const password = document.getElementById("password").value;
+            const errorMsg = document.getElementById("error-msg");
 
-            // 🔥 เทคนิคพิเศษ: ถ้า User พิมพ์มาแค่ "admin" ให้เติมโดเมนเข้าไปเอง
-            if (!username.includes('@')) {
-                username = username + "@smartcabinet.com";
-            }
-
-            btnLogin.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังตรวจสอบ...';
-            btnLogin.disabled = true;
-            errorMsg.style.display = 'none';
-
-            signInWithEmailAndPassword(auth, username, password)
-                .then((userCredential) => {
-                    // ✅ ล็อกอินสำเร็จ -> ไปหน้าตู้ยา
-                    window.location.href = "dashboard.html";
-                })
-                .catch((error) => {
-                    // ❌ ล็อกอินพลาด
-                    console.error(error.code);
-                    let msg = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
-                    if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-email') msg = "ไม่พบชื่อผู้ใช้นี้";
-                    if (error.code === 'auth/wrong-password') msg = "รหัสผ่านผิด";
-                    if (error.code === 'auth/too-many-requests') msg = "ลองใหม่ภายหลัง (ลองผิดเยอะเกิน)";
-
-                    errorMsg.innerText = msg;
-                    errorMsg.style.display = 'block';
-                    btnLogin.innerHTML = 'เข้าสู่ระบบ';
-                    btnLogin.disabled = false;
+            signInWithEmailAndPassword(auth, email, password)
+                .then(() => window.location.href = "dashboard.html")
+                .catch(() => {
+                    errorMsg.innerText = "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง";
+                    errorMsg.style.display = "block";
                 });
         });
     </script>
 
 </body>
-
 </html>

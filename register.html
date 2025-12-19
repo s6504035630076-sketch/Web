@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register • Smart Cabinet</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&family=Kanit:wght@300;400;500&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ✅ CSS เดิม + เอฟเฟกต์ */
+        :root {
+            --accent-dark: #2f3640;
+            --phyathai-dark-green: #2f6f5e;
+            --phyathai-light-green: #8bcfae;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #fbc2eb, #f6d365);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .login-card {
+            margin-top: 35px;
+            width: 100%;
+            max-width: 380px;
+            padding: 32px 28px;
+            background: rgba(255,255,255,0.35);
+            border-radius: 26px;
+            backdrop-filter: blur(22px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+        }
+
+        label { font-size: 0.9rem; }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        button {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            border-radius: 999px;
+            background: var(--accent-dark);
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        #msg {
+            display: none;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.6);
+            padding: 6px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 style="font-family:'Cormorant Garamond',serif;">Medicine Cabinet</h1>
+
+    <div class="login-card">
+        <h2 style="text-align:center">สมัครสมาชิก</h2>
+
+        <div id="msg"></div>
+
+        <label>ชื่อ – นามสกุล</label>
+        <input type="text" id="fullname" placeholder="เช่น นายแพทย์สมชาย ใจดี">
+
+        <label>ชื่อผู้ใช้ (Username)</label>
+        <input type="text" id="username" placeholder="เช่น admin">
+
+        <label>รหัสผ่าน (Password)</label>
+        <input type="password" id="password" placeholder="อย่างน้อย 6 ตัว">
+
+        <button id="btnRegister">สมัครสมาชิก</button>
+        
+        <div style="text-align:center; margin-top:15px;">
+            <a href="index.html" style="font-size:0.85rem; color:#2f3640;">กลับไปหน้าเข้าสู่ระบบ</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        // นำเข้า updateProfile เพิ่มเติม
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCEDJ0GGOqxPGik5huW9XdNEgcnlMs_ebM",
+            authDomain: "slot-drug.firebaseapp.com",
+            databaseURL: "https://slot-drug-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "slot-drug",
+            storageBucket: "slot-drug.firebasestorage.app",
+            messagingSenderId: "805318911272",
+            appId: "1:805318911272:web:d5c569063937d56eb01c1d"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        const msg = document.getElementById("msg");
+
+        document.getElementById("btnRegister").addEventListener("click", () => {
+            const fullname = document.getElementById("fullname").value.trim();
+            let username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+
+            if (!fullname || !username || !password) {
+                showMsg("กรุณากรอกข้อมูลให้ครบ", "#e74c3c");
+                return;
+            }
+
+            if (!username.includes("@")) {
+                username += "@smartcabinet.com";
+            }
+
+            createUserWithEmailAndPassword(auth, username, password)
+                .then((cred) => {
+                    const user = cred.user;
+                    const uid = user.uid;
+
+                    // 🔥 อัปเดตชื่อจริงลงไปใน Auth Profile ทันที
+                    updateProfile(user, {
+                        displayName: fullname
+                    }).then(() => {
+                        // บันทึกลง Realtime Database ด้วย
+                        set(ref(db, "users/" + uid), {
+                            name: fullname,
+                            email: username,
+                            role: "staff"
+                        });
+
+                        showMsg("สมัครสมาชิกสำเร็จ 🎉", "#2ecc71");
+                        // เปลี่ยนหน้าไปยัง index.html หรือ dashboard.html ตามต้องการ
+                        setTimeout(() => window.location.href = "index.html", 1500); 
+                    }).catch((error) => {
+                        console.error("Profile update error", error);
+                    });
+                })
+                .catch((error) => {
+                    const text =
+                        error.code === "auth/email-already-in-use"
+                            ? "ชื่อผู้ใช้นี้ถูกใช้แล้ว"
+                            : "รหัสผ่านต้องอย่างน้อย 6 ตัว (" + error.message + ")";
+                    showMsg(text, "#e74c3c");
+                });
+        });
+
+        function showMsg(text, color) {
+            msg.innerText = text;
+            msg.style.color = color;
+            msg.style.display = "block";
+        }
+    </script>
+
+</body>
+</html>

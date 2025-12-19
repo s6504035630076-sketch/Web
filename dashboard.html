@@ -13,10 +13,9 @@
         rel="stylesheet">
 
     <style>
-        /* CSS คงเดิม */
+        /* ================= CSS Styles ================= */
         :root {
             --phyathai-light-green: #8bcfae;
-            /* HOSPITAL */
             --card-bg: rgba(255, 255, 255, 0.95);
             --accent-orange: #ff9f43;
             --accent-green: #2ecc71;
@@ -40,26 +39,15 @@
         }
 
         @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         body::before {
             content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: -1;
@@ -79,6 +67,7 @@
             align-items: center;
             gap: 12px;
             margin-top: 10px;
+            flex-wrap: wrap;
         }
 
         .creator-badge {
@@ -94,6 +83,28 @@
             align-items: center;
             height: 40px;
             backdrop-filter: blur(5px);
+        }
+
+        .collab-badge {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.45);
+            padding: 7px 18px;
+            border-radius: 999px;
+            color: #2f3542;
+            display: flex;
+            align-items: center;
+            height: 40px;
+            backdrop-filter: blur(6px);
+            white-space: nowrap;
+        }
+
+        .collab-badge span {
+            color: var(--phyathai-light-green);
+            font-weight: 700;
+            margin-left: 6px;
         }
 
         .medicine-card {
@@ -125,8 +136,7 @@
             font-style: italic;
             color: rgba(0, 0, 0, 0.03);
             position: absolute;
-            left: 50%;
-            top: 50%;
+            left: 50%; top: 50%;
             transform: translate(-50%, -50%);
             z-index: 0;
             pointer-events: none;
@@ -134,8 +144,7 @@
 
         .slot-badge-label {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             background: #2f3640;
             color: #fff;
             padding: 5px 15px 5px 20px;
@@ -150,8 +159,7 @@
 
         .card-content {
             z-index: 1;
-            padding-left: 5px;
-            padding-right: 5px;
+            padding-left: 5px; padding-right: 5px;
             margin-bottom: 30px;
             text-align: center;
             width: 100%;
@@ -172,63 +180,50 @@
         }
 
         .btn-fab {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             border-radius: 50%;
             border: none;
             background: #f1f2f6;
             color: #2f3542;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             transition: 0.2s;
             cursor: pointer;
             z-index: 5;
             position: absolute;
-            bottom: 20px;
-            right: 20px;
+            bottom: 20px; right: 20px;
+        }
+
+        .btn-fab:hover {
+            background: var(--accent-orange); color: #fff;
+            box-shadow: 0 5px 15px rgba(255, 159, 67, 0.6);
+        }
+
+        .btn-fab-add {
+            background: #e8f5e9; color: var(--accent-green);
+        }
+
+        .btn-fab-add:hover {
+            background: var(--accent-green); color: #fff;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.5);
         }
 
         .btn-fab-delete {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border-radius: 50%;
             border: 1px solid #fab1a0;
             background: rgba(255, 255, 255, 0.8);
             color: #e17055;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             cursor: pointer;
             z-index: 5;
             transition: 0.2s;
             font-size: 0.8rem;
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 15px; right: 15px;
         }
 
         .btn-fab-delete:hover {
-            background: #e17055;
-            color: white;
-            border-color: #e17055;
-        }
-
-        .btn-fab:hover {
-            background: var(--accent-orange);
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(255, 159, 67, 0.6);
-        }
-
-        .btn-fab-add {
-            background: #e8f5e9;
-            color: var(--accent-green);
-        }
-
-        .btn-fab-add:hover {
-            background: var(--accent-green);
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.5);
+            background: #e17055; color: white; border-color: #e17055;
         }
 
         .footer-credit {
@@ -240,6 +235,7 @@
             opacity: 0.8;
         }
 
+        /* Modal & UI Elements */
         .glam-modal {
             position: relative;
             overflow: hidden;
@@ -264,22 +260,14 @@
             font-family: 'Kanit', sans-serif;
             font-size: 0.95rem;
             padding: 12px 16px;
-
-            /* --- ส่วนที่เพิ่มใหม่สำหรับลูกศร --- */
             appearance: none;
-            /* ลบ style เดิมของ browser */
             -webkit-appearance: none;
             -moz-appearance: none;
-
-            /* ใส่รูป icon ลูกศร (SVG เพื่อความคมชัด) */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%232c3e50' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 16px center;
-            /* จัดตำแหน่งให้อยู่ขวา */
             background-size: 16px;
-            /* ขนาด icon */
             padding-right: 40px;
-            /* เผื่อพื้นที่ไม่ให้ข้อความทับ icon */
             cursor: pointer;
         }
 
@@ -342,43 +330,20 @@
             color: white;
         }
 
-        .collab-badge {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 1.4px;
-            text-transform: uppercase;
-            background: rgba(255, 255, 255, 0.45);
-            padding: 7px 18px;
-            border-radius: 999px;
-            color: #2f3542;
-            display: flex;
-            align-items: center;
-            height: 40px;
-            backdrop-filter: blur(6px);
-        }
-
-
-        /* Collaboration Badge */
-        .collab-badge {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 1.4px;
-            text-transform: uppercase;
-            background: rgba(255, 255, 255, 0.45);
-            padding: 7px 18px;
-            border-radius: 999px;
-            color: #2f3542;
-            display: flex;
-            align-items: center;
-            height: 40px;
-            backdrop-filter: blur(6px);
+        /* Badge แสดงชื่อผู้แก้ไข */
+        .user-edit-badge {
+            background: rgba(116, 185, 255, 0.15);
+            color: #0984e3;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 5px;
+            border: 1px solid rgba(116, 185, 255, 0.3);
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
             white-space: nowrap;
-        }
-
-        .collab-badge span {
-            color: var(--phyathai-light-green);
-            font-weight: 700;
-            margin-left: 6px;
         }
     </style>
 </head>
@@ -409,11 +374,16 @@
                 <i class="fas fa-sign-out-alt me-1"></i> ออกจากระบบ
             </button>
         </div>
+
+        <div id="currentUserDisplay" class="mt-2 text-muted" style="font-family:'Outfit'; font-size:0.9rem;">
+            กำลังโหลดข้อมูลผู้ใช้...
+        </div>
     </div>
 
 
     <div class="container" style="max-width: 900px;">
-        <div class="row g-4" id="slotContainer"></div>
+        <div class="row g-4" id="slotContainer">
+            </div>
 
         <div class="d-flex justify-content-center gap-4 mt-5">
             <button class="btn btn-glam-primary rounded-pill px-4" onclick="addSlot()">
@@ -452,7 +422,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-
                     <hr class="mt-1 mb-2">
                     <div style="max-height: 350px; overflow-y: auto;">
                         <ul id="medListManager" class="list-group" style="background:none;">
@@ -471,6 +440,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        // ✅ เพิ่ม 'get' เข้ามาใน import
         import { getDatabase, ref, set, get, child, onValue, push, remove } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-database.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
@@ -489,13 +459,52 @@
         const db = getDatabase(app);
         const auth = getAuth(app);
 
-        // Security
+        // Global Variables
+        let globalSlots = [];
+        let currentSlotIndex = null;
+        let currentUserName = "Loading...";
+
+        // --- Authentication & User Info ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                console.log("Logged in:", user.email);
-                loadSlotsFromFirebase();
-                loadMedListFromFirebase();
+                console.log("Logged in UID:", user.uid);
+                
+                // 1. ดึงข้อมูลจาก Database users/{uid} เพื่อเอาชื่อ-นามสกุลจริง
+                const userRef = ref(db, 'users/' + user.uid);
+                
+                get(userRef).then((snapshot) => {
+                    let displayName = "";
+                    
+                    if (snapshot.exists() && snapshot.val().name) {
+                        // เจอชื่อใน Database (จากการสมัคร)
+                        displayName = snapshot.val().name;
+                    } else if (user.displayName) {
+                        // ไม่มีใน DB ใช้จาก Auth Profile
+                        displayName = user.displayName;
+                    } else {
+                        // ไม่มีชื่อเลย ใช้อีเมลแทน
+                        displayName = user.email;
+                    }
+
+                    currentUserName = displayName;
+
+                    // ✅ แสดง Full Name บนหน้าจอ
+                    document.getElementById("currentUserDisplay").innerHTML = 
+                        `<i class="fas fa-user-circle me-1"></i> ผู้ใช้งาน: <strong>${currentUserName}</strong>`;
+
+                    // โหลดข้อมูลยาและสล็อตหลังจากได้ชื่อผู้ใช้แล้ว
+                    loadSlotsFromFirebase();
+                    loadMedListFromFirebase();
+
+                }).catch((error) => {
+                    console.error("Error fetching user data:", error);
+                    currentUserName = user.email || "Unknown User";
+                    loadSlotsFromFirebase();
+                    loadMedListFromFirebase();
+                });
+
             } else {
+                // ถ้าไม่ได้ล็อกอิน ดีดกลับไปหน้า Login
                 window.location.href = "index.html";
             }
         });
@@ -503,9 +512,6 @@
         window.logout = function () {
             signOut(auth).then(() => { window.location.href = "index.html"; }).catch((error) => { alert("Logout Failed"); });
         };
-
-        let globalSlots = [];
-        let currentSlotIndex = null;
 
         // --- Medicine List Logic ---
         const medListRef = ref(db, 'drugs');
@@ -526,11 +532,13 @@
                         const drugItem = data[key];
                         const drugName = drugItem.name ? drugItem.name : key;
 
+                        // ใส่ใน Dropdown เลือกยา
                         const opt = document.createElement("option");
                         opt.value = drugName;
                         opt.textContent = drugName;
                         select.appendChild(opt);
 
+                        // ใส่ใน List จัดการยา
                         const li = document.createElement("li");
                         li.className = "list-group-item d-flex justify-content-between align-items-center mb-2";
                         li.style.background = "rgba(255,255,255,0.7)";
@@ -588,8 +596,11 @@
                 const displayNum = String(index + 1).padStart(2, '0');
                 s.slot = index + 1;
 
-                // 🔥 แสดงเวลาที่เพิ่ม (ถ้ามี)
-                const createdTime = s.createdAt ? `<br><small class="text-muted" style="font-size:0.75rem"><i class="far fa-clock me-1"></i>Added: ${s.createdAt}</small>` : '';
+                // เวลาที่แก้ไข
+                const createdTime = s.createdAt ? `<div class="text-muted mt-2" style="font-size:0.75rem"><i class="far fa-clock me-1"></i>${s.createdAt}</div>` : '';
+                
+                // ✅ แสดงชื่อคนแก้ไข (Edited By)
+                const editorInfo = s.editedBy ? `<div class="user-edit-badge" title="Last edited by ${s.editedBy}"><i class="fas fa-user-edit me-1"></i> ${s.editedBy}</div>` : '';
 
                 const cardHTML = `
                     <div class="col-md-6">
@@ -612,7 +623,10 @@
                                 </div>
                                 <div class="med-detail">
                                     ${s.detail}
-                                    ${createdTime} </div>
+                                </div>
+                                
+                                ${createdTime}
+                                ${editorInfo}
                             </div>
 
                             <button class="btn-fab ${filled ? "" : "btn-fab-add"}" onclick="editMedicine(${index})">
@@ -626,21 +640,17 @@
         }
 
         window.saveToFirebase = function () {
-            // 1️⃣ ส่วนสำคัญ: บังคับเรียงเลข Slot ใหม่ทั้งหมด ให้ตรงกับลำดับ Array 0,1,2...
             if (Array.isArray(globalSlots)) {
                 globalSlots.forEach((item, index) => {
-                    // Index 0 -> ให้เป็น Slot 1
-                    // Index 1 -> ให้เป็น Slot 2
-                    if (item) { // เช็คกัน error ว่า item ไม่ใช่ null
+                    if (item) { 
                         item.slot = index + 1;
                     }
                 });
             }
 
-            // 2️⃣ ส่งข้อมูลที่แก้เลขแล้ว ขึ้น Firebase
             set(ref(db, "slots"), globalSlots)
                 .then(() => {
-                    console.log("✅ Data synced & Re-indexed successfully");
+                    console.log("✅ Data synced successfully");
                 })
                 .catch((error) => {
                     alert("บันทึกไม่สำเร็จ: " + error.message);
@@ -653,21 +663,17 @@
             const nextNum = globalSlots.length + 1;
 
             const now = new Date();
-            // 🔥 ปรับเป็นรูปแบบสากล: 09 Dec 2025 14:30
             const dateTimeString = now.toLocaleString('en-GB', {
-                day: 'numeric',
-                month: 'short',   // Dec
-                year: 'numeric',  // 2025
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false     // ใช้แบบ 24 ชั่วโมง (14:30)
+                day: 'numeric', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', hour12: false
             });
 
             globalSlots.push({
                 slot: nextNum,
                 name: "Empty Slot",
                 detail: "Available for new item",
-                createdAt: dateTimeString
+                createdAt: dateTimeString,
+                editedBy: currentUserName // ✅ บันทึกชื่อคนเพิ่ม Slot
             });
             saveToFirebase();
         };
@@ -697,16 +703,14 @@
                 globalSlots[currentSlotIndex].name = name;
                 globalSlots[currentSlotIndex].detail = '<span class="text-success small">● Ready to dispense</span>';
 
-                // 🔥 อัปเดตเวลาเป็นสากลเช่นกัน
                 const now = new Date();
                 globalSlots[currentSlotIndex].createdAt = now.toLocaleString('en-GB', {
-                    day: 'numeric',
-                    month: 'short',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false
+                    day: 'numeric', month: 'short', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit', hour12: false
                 });
+
+                // ✅ บันทึกชื่อคนแก้ไขล่าสุด
+                globalSlots[currentSlotIndex].editedBy = currentUserName;
 
                 saveToFirebase();
             }
@@ -716,5 +720,4 @@
     </script>
 
 </body>
-
 </html>
